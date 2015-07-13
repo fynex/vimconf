@@ -1,8 +1,8 @@
-"-----------------------------------------------"
-" Author:       Tim Sæterøy                     "
-" Homepage:     http://thevoid.no               "
-" Source:       http://github.com/timss/vimconf "
-"-----------------------------------------------"
+"-------------------------------------------------"
+" OriginalAuthor: Tim Sæterøy                     "
+" Homepage:       http://thevoid.no               "
+" Source:         http://github.com/timss/vimconf "
+"-------------------------------------------------"
 
 " vimconf is not vi-compatible
 set nocompatible
