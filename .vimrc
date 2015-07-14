@@ -1,8 +1,5 @@
-"-------------------------------------------------"
-" OriginalAuthor: Tim Sæterøy                     "
-" Homepage:       http://thevoid.no               "
-" Source:         http://github.com/timss/vimconf "
-"-------------------------------------------------"
+" OriginalAuthor: Tim Sæterøy | Homepage:       http://thevoid.no | Source:         http://github.com/timss/vimconf "
+
 
 " vimconf is not vi-compatible
 set nocompatible
@@ -667,7 +664,7 @@ if has("autocmd")
   if v:version > 701
     autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
     autocmd Syntax * call matchadd('AnnYellow', '\W\zs\(NOTE\|INFO\|IDEA\)')
-    autocmd Syntax * call matchadd('AnnRed', '\W\zs\(WARNING\|ATTENTION\)')
+    autocmd Syntax * call matchadd('AnnRed', '\W\zs\(WARNING\|ATTENTION\|DEBUG\)')
     "autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
   endif
 endif 
