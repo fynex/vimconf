@@ -656,6 +656,10 @@ let g:syntastic_python_python_exec = '/usr/bin/python2'
 " Press F4 to toggle highlighting on/off, and show current value.
 :noremap <F4> :set hlsearch! hlsearch?<CR>
 
+noremap ö l
+noremap l k
+noremap k j
+noremap j h
 
 
 " Highlight specific key words
