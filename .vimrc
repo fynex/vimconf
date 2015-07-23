@@ -300,8 +300,8 @@ endif
         vmap <C-down> ]egv
 
         " Scroll up/down lines from 'scroll' option, default half a screen
-        map <C-j> <C-d>
-        map <C-k> <C-u>
+        map <C-k> <C-d>
+        map <C-l> <C-u>
 
         " Treat wrapped lines as normal lines
         nnoremap j gj
@@ -660,6 +660,9 @@ noremap ö l
 noremap l k
 noremap k j
 noremap j h
+"noremap <c-k> <c-j>
+"noremap <c-l> <c-k>
+
 
 
 " Highlight specific key words
