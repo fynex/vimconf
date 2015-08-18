@@ -675,3 +675,11 @@ if has("autocmd")
     "autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
   endif
 endif 
+
+" Fix Wrong latex syntax errors in lstlisting
+" Put this into: ~/.vim/after/syntax/tex/listings.vim
+"syn region texZone start="\\begin{lstlisting}" end="\\end{lstlisting}\|%stopzone\>"
+"syn region texZone  start="\\lstinputlisting" end="{\s*[a-zA-Z/.0-9_^]\+\s*}"
+"syn match texInputFile "\\lstinline\s*\(\[.*\]\)\={.\{-}}" contains=texStatement,texInputCurlies,texInputFileOpt
+
+
