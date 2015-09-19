@@ -104,6 +104,8 @@ endif
 
     Plugin 'wannesm/wmnusmv.vim'
 
+    Plugin 'farseer90718/vim-taskwarrior'
+
     " Finish Vundle stuff
     call vundle#end()
 
@@ -682,4 +684,7 @@ endif
 "syn region texZone  start="\\lstinputlisting" end="{\s*[a-zA-Z/.0-9_^]\+\s*}"
 "syn match texInputFile "\\lstinline\s*\(\[.*\]\)\={.\{-}}" contains=texStatement,texInputCurlies,texInputFileOpt
 
+" Toggle Normal-/Insert-Mode with capslock
+nnoremap <C-o> i
+imap <C-o> <Esc>
 
