@@ -104,6 +104,8 @@ endif
 
     Plugin 'wannesm/wmnusmv.vim'
 
+    Plugin 'jtratner/vim-flavored-markdown'
+
     "Plugin 'farseer90718/vim-taskwarrior'
 
     " Finish Vundle stuff
