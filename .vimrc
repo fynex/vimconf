@@ -106,6 +106,8 @@ endif
 
     Plugin 'jtratner/vim-flavored-markdown'
 
+    Plugin 'scrooloose/nerdtree'
+
     "Plugin 'farseer90718/vim-taskwarrior'
 
     " Finish Vundle stuff
@@ -666,7 +668,7 @@ noremap k j
 noremap j h
 "noremap <c-k> <c-j>
 "noremap <c-l> <c-k>
-
+nmap <silent> <F1> :NERDTreeToggle<CR>
 
 " Map key to toggle opt
 function MapToggle(key, opt)
