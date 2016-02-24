@@ -47,17 +47,21 @@ endif
     """ }}}
 
     " Edit files using sudo/su
-    Plugin 'chrisbra/SudoEdit.vim'
+    " Plugin 'chrisbra/SudoEdit.vim'
 
     " <Tab> everything!
     Plugin 'ervandew/supertab'
 
     " Fuzzy finder (files, mru, etc)
-    Plugin 'kien/ctrlp.vim'
+    " Plugin 'kien/ctrlp.vim'
 
     " A pretty statusline, bufferline integration
-    Plugin 'itchyny/lightline.vim'
-    Plugin 'bling/vim-bufferline'
+    " Plugin 'itchyny/lightline.vim'
+    " Plugin 'bling/vim-bufferline'
+
+    " Better statusline
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
 
     " Easy... motions... yeah.
     Plugin 'Lokaltog/vim-easymotion'
@@ -66,19 +70,19 @@ endif
     Plugin 'nanotech/jellybeans.vim'
 
     " Super easy commenting, toggle comments etc
-    Plugin 'scrooloose/nerdcommenter'
+    " Plugin 'scrooloose/nerdcommenter'
 
     " Autoclose (, " etc
-    Plugin 'Townk/vim-autoclose'
+    " Plugin 'Townk/vim-autoclose'
 
     " Git wrapper inside Vim
-    Plugin 'tpope/vim-fugitive'
+    " Plugin 'tpope/vim-fugitive'
 
     " Handle surround chars like ''
     Plugin 'tpope/vim-surround'
 
     " Align your = etc.
-    Plugin 'vim-scripts/Align'
+    " Plugin 'vim-scripts/Align'
 
     " Snippets like textmate
     Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -108,7 +112,7 @@ endif
 
     Plugin 'scrooloose/nerdtree'
 
-    "Plugin 'farseer90718/vim-taskwarrior'
+    Plugin 'farseer90718/vim-taskwarrior'
 
     " Finish Vundle stuff
     call vundle#end()
@@ -202,7 +206,11 @@ endif
     set splitbelow                                  " splits go below w/focus
     set splitright                                  " vsplits go right w/focus
     set ttyfast                                     " for faster redraws etc
-    set ttymouse=xterm2                             " experimental
+
+    if !has('nvim')
+        set ttymouse=xterm2                             " experimental
+    endif    
+
     """ Folding {{{
         set foldcolumn=0                            " hide folding column
         set foldmethod=indent                       " folds using indent
@@ -443,8 +451,11 @@ endif
     """ }}}
     """ Plugins {{{
         " Toggle tagbar (definitions, functions etc.)
-        map <F1> :TagbarToggle<CR>
+        map <F5> :TagbarToggle<CR>
 
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline_powerline_fonts = 1
+        
         " Toggle pastemode, doesn't indent
         set pastetoggle=<F3>
 
@@ -498,156 +509,156 @@ endif
     augroup END
 
     """ Lightline {{{
-        let g:lightline = {
-            \ 'colorscheme': 'jellybeans',
-            \ 'active': {
-            \     'left': [
-            \         ['mode', 'paste'],
-            \         ['readonly', 'fugitive'],
-            \         ['ctrlpmark', 'bufferline']
-            \     ],
-            \     'right': [
-            \         ['lineinfo'],
-            \         ['percent'],
-            \         ['fileformat', 'fileencoding', 'filetype', 'syntastic']
-            \     ]
-            \ },
-            \ 'component': {
-            \     'paste': '%{&paste?"!":""}'
-            \ },
-            \ 'component_function': {
-            \     'mode'         : 'MyMode',
-            \     'fugitive'     : 'MyFugitive',
-            \     'readonly'     : 'MyReadonly',
-            \     'ctrlpmark'    : 'CtrlPMark',
-            \     'bufferline'   : 'MyBufferline',
-            \     'fileformat'   : 'MyFileformat',
-            \     'fileencoding' : 'MyFileencoding',
-            \     'filetype'     : 'MyFiletype'
-            \ },
-            \ 'component_expand': {
-            \     'syntastic': 'SyntasticStatuslineFlag',
-            \ },
-            \ 'component_type': {
-            \     'syntastic': 'middle',
-            \ },
-            \ 'subseparator': {
-            \     'left': '|', 'right': '|'
-            \ }
-            \ }
+    "     let g:lightline = {
+    "         \ 'colorscheme': 'jellybeans',
+    "         \ 'active': {
+    "         \     'left': [
+    "         \         ['mode', 'paste'],
+    "         \         ['readonly', 'fugitive'],
+    "         \         ['ctrlpmark', 'bufferline']
+    "         \     ],
+    "         \     'right': [
+    "         \         ['lineinfo'],
+    "         \         ['percent'],
+    "         \         ['fileformat', 'fileencoding', 'filetype', 'syntastic']
+    "         \     ]
+    "         \ },
+    "         \ 'component': {
+    "         \     'paste': '%{&paste?"!":""}'
+    "         \ },
+    "         \ 'component_function': {
+    "         \     'mode'         : 'MyMode',
+    "         \     'fugitive'     : 'MyFugitive',
+    "         \     'readonly'     : 'MyReadonly',
+    "         \     'ctrlpmark'    : 'CtrlPMark',
+    "         \     'bufferline'   : 'MyBufferline',
+    "         \     'fileformat'   : 'MyFileformat',
+    "         \     'fileencoding' : 'MyFileencoding',
+    "         \     'filetype'     : 'MyFiletype'
+    "         \ },
+    "         \ 'component_expand': {
+    "         \     'syntastic': 'SyntasticStatuslineFlag',
+    "         \ },
+    "         \ 'component_type': {
+    "         \     'syntastic': 'middle',
+    "         \ },
+    "         \ 'subseparator': {
+    "         \     'left': '|', 'right': '|'
+    "         \ }
+    "         \ }
 
-        let g:lightline.mode_map = {
-            \ 'n'      : ' N ',
-            \ 'i'      : ' I ',
-            \ 'R'      : ' R ',
-            \ 'v'      : ' V ',
-            \ 'V'      : 'V-L',
-            \ 'c'      : ' C ',
-            \ "\<C-v>" : 'V-B',
-            \ 's'      : ' S ',
-            \ 'S'      : 'S-L',
-            \ "\<C-s>" : 'S-B',
-            \ '?'      : '      ' }
+    "     let g:lightline.mode_map = {
+    "         \ 'n'      : ' N ',
+    "         \ 'i'      : ' I ',
+    "         \ 'R'      : ' R ',
+    "         \ 'v'      : ' V ',
+    "         \ 'V'      : 'V-L',
+    "         \ 'c'      : ' C ',
+    "         \ "\<C-v>" : 'V-B',
+    "         \ 's'      : ' S ',
+    "         \ 'S'      : 'S-L',
+    "         \ "\<C-s>" : 'S-B',
+    "         \ '?'      : '      ' }
 
-        function! MyMode()
-            let fname = expand('%:t')
-            return fname == '__Tagbar__' ? 'Tagbar' :
-                    \ fname == 'ControlP' ? 'CtrlP' :
-                    \ winwidth('.') > 60 ? lightline#mode() : ''
-        endfunction
+    "     function! MyMode()
+    "         let fname = expand('%:t')
+    "         return fname == '__Tagbar__' ? 'Tagbar' :
+    "                 \ fname == 'ControlP' ? 'CtrlP' :
+    "                 \ winwidth('.') > 60 ? lightline#mode() : ''
+    "     endfunction
 
-        function! MyFugitive()
-            try
-                if expand('%:t') !~? 'Tagbar' && exists('*fugitive#head')
-                    let mark = '± '
-                    let _ = fugitive#head()
-                    return strlen(_) ? mark._ : ''
-                endif
-            catch
-            endtry
-            return ''
-        endfunction
+    "     function! MyFugitive()
+    "         try
+    "             if expand('%:t') !~? 'Tagbar' && exists('*fugitive#head')
+    "                 let mark = '± '
+    "                 let _ = fugitive#head()
+    "                 return strlen(_) ? mark._ : ''
+    "             endif
+    "         catch
+    "         endtry
+    "         return ''
+    "     endfunction
 
-        function! MyReadonly()
-            return &ft !~? 'help' && &readonly ? '≠' : '' " or ⭤
-        endfunction
+    "     function! MyReadonly()
+    "         return &ft !~? 'help' && &readonly ? '≠' : '' " or ⭤
+    "     endfunction
 
-        function! CtrlPMark()
-            if expand('%:t') =~ 'ControlP'
-                call lightline#link('iR'[g:lightline.ctrlp_regex])
-                return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-                    \ , g:lightline.ctrlp_next], 0)
-            else
-                return ''
-            endif
-        endfunction
+    "     function! CtrlPMark()
+    "         if expand('%:t') =~ 'ControlP'
+    "             call lightline#link('iR'[g:lightline.ctrlp_regex])
+    "             return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+    "                 \ , g:lightline.ctrlp_next], 0)
+    "         else
+    "             return ''
+    "         endif
+    "     endfunction
 
-        function! MyBufferline()
-            call bufferline#refresh_status()
-            let b = g:bufferline_status_info.before
-            let c = g:bufferline_status_info.current
-            let a = g:bufferline_status_info.after
-            let alen = strlen(a)
-            let blen = strlen(b)
-            let clen = strlen(c)
-            let w = winwidth(0) * 4 / 11
-            if w < alen+blen+clen
-                let whalf = (w - strlen(c)) / 2
-                let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
-                let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
-                return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
-            else
-                return b . c . a
-            endif
-        endfunction
+    "     function! MyBufferline()
+    "         call bufferline#refresh_status()
+    "         let b = g:bufferline_status_info.before
+    "         let c = g:bufferline_status_info.current
+    "         let a = g:bufferline_status_info.after
+    "         let alen = strlen(a)
+    "         let blen = strlen(b)
+    "         let clen = strlen(c)
+    "         let w = winwidth(0) * 4 / 11
+    "         if w < alen+blen+clen
+    "             let whalf = (w - strlen(c)) / 2
+    "             let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
+    "             let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
+    "             return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
+    "         else
+    "             return b . c . a
+    "         endif
+    "     endfunction
 
-        function! MyFileformat()
-            return winwidth('.') > 90 ? &fileformat : ''
-        endfunction
+    "     function! MyFileformat()
+    "         return winwidth('.') > 90 ? &fileformat : ''
+    "     endfunction
 
-        function! MyFileencoding()
-            return winwidth('.') > 80 ? (strlen(&fenc) ? &fenc : &enc) : ''
-        endfunction
+    "     function! MyFileencoding()
+    "         return winwidth('.') > 80 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    "     endfunction
 
-        function! MyFiletype()
-            return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-        endfunction
+    "     function! MyFiletype()
+    "         return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    "     endfunction
 
-        let g:ctrlp_status_func = {
-            \ 'main': 'CtrlPStatusFunc_1',
-            \ 'prog': 'CtrlPStatusFunc_2',
-            \ }
+    "     let g:ctrlp_status_func = {
+    "         \ 'main': 'CtrlPStatusFunc_1',
+    "         \ 'prog': 'CtrlPStatusFunc_2',
+    "         \ }
 
-        function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-            let g:lightline.ctrlp_regex = a:regex
-            let g:lightline.ctrlp_prev = a:prev
-            let g:lightline.ctrlp_item = a:item
-            let g:lightline.ctrlp_next = a:next
-            return lightline#statusline(0)
-        endfunction
+    "     function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+    "         let g:lightline.ctrlp_regex = a:regex
+    "         let g:lightline.ctrlp_prev = a:prev
+    "         let g:lightline.ctrlp_item = a:item
+    "         let g:lightline.ctrlp_next = a:next
+    "         return lightline#statusline(0)
+    "     endfunction
 
-        function! CtrlPStatusFunc_2(str)
-            return lightline#statusline(0)
-        endfunction
+    "     function! CtrlPStatusFunc_2(str)
+    "         return lightline#statusline(0)
+    "     endfunction
 
-        let g:tagbar_status_func = 'TagbarStatusFunc'
+    "     let g:tagbar_status_func = 'TagbarStatusFunc'
 
-        function! TagbarStatusFunc(current, sort, fname, ...) abort
-            let g:lightline.fname = a:fname
-            return lightline#statusline(0)
-        endfunction
+    "     function! TagbarStatusFunc(current, sort, fname, ...) abort
+    "         let g:lightline.fname = a:fname
+    "         return lightline#statusline(0)
+    "     endfunction
 
-        function! s:syntastic()
-            SyntasticCheck
-            call lightline#update()
-        endfunction
+    "     function! s:syntastic()
+    "         SyntasticCheck
+    "         call lightline#update()
+    "     endfunction
 
-        augroup AutoSyntastic
-            autocmd!
-            execute "autocmd FileType " .
-                        \join(g:syntastic_mode_map["active_filetypes"], ",") .
-                        \" autocmd BufWritePost <buffer> :call s:syntastic()"
-        augroup END
+    "     augroup AutoSyntastic
+    "         autocmd!
+    "         execute "autocmd FileType " .
+    "                     \join(g:syntastic_mode_map["active_filetypes"], ",") .
+    "                     \" autocmd BufWritePost <buffer> :call s:syntastic()"
+    "     augroup END
     """ }}}
 """ }}}
 """ Local ending config, will overwrite anything above. Generally use this. {{{{
@@ -707,3 +718,6 @@ syn region texZone start="\\begin{lstlisting}" end="\\end{lstlisting}\|%stopzone
 syn region texZone  start="\\lstinputlisting" end="{\s*[a-zA-Z/.0-9_^]\+\s*}"
 syn match texInputFile "\\lstinline\s*\(\[.*\]\)\={.\{-}}" contains=texStatement,texInputCurlies,texInputFileOpt
 
+" NeoVim tests
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
