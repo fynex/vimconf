@@ -11,7 +11,7 @@ if !exists("autocmd_colorscheme_loaded")
   autocmd ColorScheme * highlight AnnRed    guibg=#002b37 ctermfg=Red          guifg=#E01B1B
   autocmd ColorScheme * highlight AnnBrown  guibg=#002b37 ctermfg=Brown        guifg=#E0841B
   autocmd ColorScheme * highlight AnnYellow guibg=#002b37 ctermfg=DarkYellow   guifg=#E0D91B
-endif 
+endif
 
 """ Automatically make needed files and folders on first run
 """ If you don't run *nix you're on your own (as in remove this) {{{
@@ -114,6 +114,12 @@ endif
 
     Plugin 'farseer90718/vim-taskwarrior'
 
+    " An icon theme for vim
+    Plugin 'ryanoasis/vim-devicons'
+
+    " A hexeditor
+    Plugin 'fidian/hexmode'
+
     " Finish Vundle stuff
     call vundle#end()
 
@@ -209,7 +215,7 @@ endif
 
     if !has('nvim')
         set ttymouse=xterm2                             " experimental
-    endif    
+    endif
 
     """ Folding {{{
         set foldcolumn=0                            " hide folding column
@@ -334,6 +340,33 @@ endif
         nnoremap gN :bprevious<CR>
         nnoremap gd :bdelete<CR>
         nnoremap gf <C-^>
+
+        " Better and more motionless navigation
+        noremap ö l
+        noremap l k
+        noremap k j
+        noremap j h
+
+        " Map key to toggle opt
+        function MapToggle(key, opt)
+        let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+        exec 'nnoremap '.a:key.' '.cmd
+        exec 'inoremap '.a:key." \<C-O>".cmd
+        endfunction
+        command -nargs=+ MapToggle call MapToggle(<f-args>)
+
+        MapToggle <F3> wrap
+
+        " Toggling paste mode
+        set pastetoggle=<F2>
+
+        " Press F4 to toggle highlighting on/off, and show current value.
+        :noremap <F4> :set hlsearch! hlsearch?<CR>
+
+        " Toggle tagbar (definitions, functions etc.)
+        map <F5> :TagbarToggle<CR>
+        nmap <silent> <F1> :NERDTreeToggle<CR>
+
     """ }}}
     """ Functions and/or fancy keybinds {{{{
         """ Vim motion on next found object like ci", but for ([{< etc
@@ -450,18 +483,7 @@ endif
         """ }}}
     """ }}}
     """ Plugins {{{
-        " Toggle tagbar (definitions, functions etc.)
-        map <F5> :TagbarToggle<CR>
 
-        let g:airline#extensions#tabline#enabled = 1
-        let g:airline_powerline_fonts = 1
-        
-        " Toggle pastemode, doesn't indent
-        set pastetoggle=<F3>
-
-        " Syntastic - toggle error list. Probably should be toggleable.
-        noremap <silent><leader>lo :Errors<CR>
-        noremap <silent><leader>lc :lcl<CR>
     """ }}}
 """ }}}
 """ Plugin settings {{{
@@ -472,9 +494,7 @@ endif
         \ $HOME . "/.vimrc.last", $HOME . "/.vimrc.plugins"
         \ ]
     let g:startify_custom_header = [
-        \ '   Author:      Tim Sæterøy',
-        \ '   Homepage:    http://thevoid.no',
-        \ '   Source:      http://github.com/timss/vimconf',
+        \ '   You are flying with Vim',
         \ ''
         \ ]
 
@@ -508,158 +528,26 @@ endif
         autocmd InsertLeave * if pumvisible() == 0|pclose|endif
     augroup END
 
-    """ Lightline {{{
-    "     let g:lightline = {
-    "         \ 'colorscheme': 'jellybeans',
-    "         \ 'active': {
-    "         \     'left': [
-    "         \         ['mode', 'paste'],
-    "         \         ['readonly', 'fugitive'],
-    "         \         ['ctrlpmark', 'bufferline']
-    "         \     ],
-    "         \     'right': [
-    "         \         ['lineinfo'],
-    "         \         ['percent'],
-    "         \         ['fileformat', 'fileencoding', 'filetype', 'syntastic']
-    "         \     ]
-    "         \ },
-    "         \ 'component': {
-    "         \     'paste': '%{&paste?"!":""}'
-    "         \ },
-    "         \ 'component_function': {
-    "         \     'mode'         : 'MyMode',
-    "         \     'fugitive'     : 'MyFugitive',
-    "         \     'readonly'     : 'MyReadonly',
-    "         \     'ctrlpmark'    : 'CtrlPMark',
-    "         \     'bufferline'   : 'MyBufferline',
-    "         \     'fileformat'   : 'MyFileformat',
-    "         \     'fileencoding' : 'MyFileencoding',
-    "         \     'filetype'     : 'MyFiletype'
-    "         \ },
-    "         \ 'component_expand': {
-    "         \     'syntastic': 'SyntasticStatuslineFlag',
-    "         \ },
-    "         \ 'component_type': {
-    "         \     'syntastic': 'middle',
-    "         \ },
-    "         \ 'subseparator': {
-    "         \     'left': '|', 'right': '|'
-    "         \ }
-    "         \ }
 
-    "     let g:lightline.mode_map = {
-    "         \ 'n'      : ' N ',
-    "         \ 'i'      : ' I ',
-    "         \ 'R'      : ' R ',
-    "         \ 'v'      : ' V ',
-    "         \ 'V'      : 'V-L',
-    "         \ 'c'      : ' C ',
-    "         \ "\<C-v>" : 'V-B',
-    "         \ 's'      : ' S ',
-    "         \ 'S'      : 'S-L',
-    "         \ "\<C-s>" : 'S-B',
-    "         \ '?'      : '      ' }
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline_powerline_fonts = 1
 
-    "     function! MyMode()
-    "         let fname = expand('%:t')
-    "         return fname == '__Tagbar__' ? 'Tagbar' :
-    "                 \ fname == 'ControlP' ? 'CtrlP' :
-    "                 \ winwidth('.') > 60 ? lightline#mode() : ''
-    "     endfunction
+    " Toggle pastemode, doesn't indent
+    "set pastetoggle=<F3>
 
-    "     function! MyFugitive()
-    "         try
-    "             if expand('%:t') !~? 'Tagbar' && exists('*fugitive#head')
-    "                 let mark = '± '
-    "                 let _ = fugitive#head()
-    "                 return strlen(_) ? mark._ : ''
-    "             endif
-    "         catch
-    "         endtry
-    "         return ''
-    "     endfunction
+    " Syntastic - toggle error list. Probably should be toggleable.
+    noremap <silent><leader>lo :Errors<CR>
+    noremap <silent><leader>lc :lcl<CR>
 
-    "     function! MyReadonly()
-    "         return &ft !~? 'help' && &readonly ? '≠' : '' " or ⭤
-    "     endfunction
 
-    "     function! CtrlPMark()
-    "         if expand('%:t') =~ 'ControlP'
-    "             call lightline#link('iR'[g:lightline.ctrlp_regex])
-    "             return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-    "                 \ , g:lightline.ctrlp_next], 0)
-    "         else
-    "             return ''
-    "         endif
-    "     endfunction
+    " Latex: better lstlisting
+    syn region texZone start="\\begin{lstlisting}" end="\\end{lstlisting}\|%stopzone\>"
+    syn region texZone  start="\\lstinputlisting" end="{\s*[a-zA-Z/.0-9_^]\+\s*}"
+    syn match texInputFile "\\lstinline\s*\(\[.*\]\)\={.\{-}}" contains=texStatement,texInputCurlies,texInputFileOpt
 
-    "     function! MyBufferline()
-    "         call bufferline#refresh_status()
-    "         let b = g:bufferline_status_info.before
-    "         let c = g:bufferline_status_info.current
-    "         let a = g:bufferline_status_info.after
-    "         let alen = strlen(a)
-    "         let blen = strlen(b)
-    "         let clen = strlen(c)
-    "         let w = winwidth(0) * 4 / 11
-    "         if w < alen+blen+clen
-    "             let whalf = (w - strlen(c)) / 2
-    "             let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
-    "             let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
-    "             return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
-    "         else
-    "             return b . c . a
-    "         endif
-    "     endfunction
 
-    "     function! MyFileformat()
-    "         return winwidth('.') > 90 ? &fileformat : ''
-    "     endfunction
+    let g:syntastic_python_python_exec = '/usr/bin/python2'
 
-    "     function! MyFileencoding()
-    "         return winwidth('.') > 80 ? (strlen(&fenc) ? &fenc : &enc) : ''
-    "     endfunction
-
-    "     function! MyFiletype()
-    "         return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-    "     endfunction
-
-    "     let g:ctrlp_status_func = {
-    "         \ 'main': 'CtrlPStatusFunc_1',
-    "         \ 'prog': 'CtrlPStatusFunc_2',
-    "         \ }
-
-    "     function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-    "         let g:lightline.ctrlp_regex = a:regex
-    "         let g:lightline.ctrlp_prev = a:prev
-    "         let g:lightline.ctrlp_item = a:item
-    "         let g:lightline.ctrlp_next = a:next
-    "         return lightline#statusline(0)
-    "     endfunction
-
-    "     function! CtrlPStatusFunc_2(str)
-    "         return lightline#statusline(0)
-    "     endfunction
-
-    "     let g:tagbar_status_func = 'TagbarStatusFunc'
-
-    "     function! TagbarStatusFunc(current, sort, fname, ...) abort
-    "         let g:lightline.fname = a:fname
-    "         return lightline#statusline(0)
-    "     endfunction
-
-    "     function! s:syntastic()
-    "         SyntasticCheck
-    "         call lightline#update()
-    "     endfunction
-
-    "     augroup AutoSyntastic
-    "         autocmd!
-    "         execute "autocmd FileType " .
-    "                     \join(g:syntastic_mode_map["active_filetypes"], ",") .
-    "                     \" autocmd BufWritePost <buffer> :call s:syntastic()"
-    "     augroup END
-    """ }}}
 """ }}}
 """ Local ending config, will overwrite anything above. Generally use this. {{{{
     if filereadable($HOME."/.vimrc.last")
@@ -667,29 +555,11 @@ endif
     endif
 """ }}}
 
-" OWN 
-set pastetoggle=<F2>
-let g:syntastic_python_python_exec = '/usr/bin/python2'
-" Press F4 to toggle highlighting on/off, and show current value.
-:noremap <F4> :set hlsearch! hlsearch?<CR>
+" OWN
 
-noremap ö l
-noremap l k
-noremap k j
-noremap j h
 "noremap <c-k> <c-j>
 "noremap <c-l> <c-k>
-nmap <silent> <F1> :NERDTreeToggle<CR>
 
-" Map key to toggle opt
-function MapToggle(key, opt)
-  let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
-  exec 'nnoremap '.a:key.' '.cmd
-  exec 'inoremap '.a:key." \<C-O>".cmd
-endfunction
-command -nargs=+ MapToggle call MapToggle(<f-args>)
-
-MapToggle <F3> wrap
 
 
 " Highlight specific key words
@@ -701,7 +571,7 @@ if has("autocmd")
     autocmd Syntax * call matchadd('AnnRed', '\W\zs\(WARNING\|ATTENTION\|DEBUG\)')
     "autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
   endif
-endif 
+endif
 
 " Fix Wrong latex syntax errors in lstlisting
 " Put this into: ~/.vim/after/syntax/tex/listings.vim
@@ -713,10 +583,6 @@ endif
 nnoremap <C-o> i
 imap <C-o> <Esc>
 
-" Latex: better lstlisting
-syn region texZone start="\\begin{lstlisting}" end="\\end{lstlisting}\|%stopzone\>"
-syn region texZone  start="\\lstinputlisting" end="{\s*[a-zA-Z/.0-9_^]\+\s*}"
-syn match texInputFile "\\lstinline\s*\(\[.*\]\)\={.\{-}}" contains=texStatement,texInputCurlies,texInputFileOpt
 
 " NeoVim tests
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
