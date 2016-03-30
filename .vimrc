@@ -4,7 +4,6 @@
 " vimconf is not vi-compatible
 set nocompatible
 
-
 " Color defines
 if !exists("autocmd_colorscheme_loaded")
   let autocmd_colorscheme_loaded = 1
@@ -112,13 +111,16 @@ endif
 
     Plugin 'scrooloose/nerdtree'
 
-    Plugin 'farseer90718/vim-taskwarrior'
+    "Plugin 'farseer90718/vim-taskwarrior'
 
     " An icon theme for vim
     Plugin 'ryanoasis/vim-devicons'
 
     " A hexeditor
-    Plugin 'fidian/hexmode'
+    "Plugin 'fidian/hexmode'
+
+    " Haxe highlighting
+    "Plugin 'jdonaldson/vaxe'
 
     " Finish Vundle stuff
     call vundle#end()
@@ -566,7 +568,7 @@ endif
 if has("autocmd")
   " Highlight TODO, FIXME, NOTE, etc.
   if v:version > 701
-    autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|Q?\|BUG\|HACK\)')
     autocmd Syntax * call matchadd('AnnYellow', '\W\zs\(NOTE\|INFO\|IDEA\)')
     autocmd Syntax * call matchadd('AnnRed', '\W\zs\(WARNING\|ATTENTION\|DEBUG\)')
     "autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\)')
