@@ -116,6 +116,8 @@ endif
     " An icon theme for vim
     Plugin 'ryanoasis/vim-devicons'
 
+    Plugin 'godlygeek/tabular'
+
     " A hexeditor
     "Plugin 'fidian/hexmode'
 
