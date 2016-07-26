@@ -52,7 +52,7 @@ endif
     Plugin 'ervandew/supertab'
 
     " Fuzzy finder (files, mru, etc)
-    " Plugin 'kien/ctrlp.vim'
+    Plugin 'ctrlpvim/ctrlp.vim'
 
     " A pretty statusline, bufferline integration
     " Plugin 'itchyny/lightline.vim'
@@ -370,6 +370,10 @@ endif
         " Toggle tagbar (definitions, functions etc.)
         map <F5> :TagbarToggle<CR>
         nmap <silent> <F1> :NERDTreeToggle<CR>
+
+        " Toggle english spell checking
+        map <F6> :setlocal spell! spelllang=en_us<CR>
+
 
     """ }}}
     """ Functions and/or fancy keybinds {{{{
