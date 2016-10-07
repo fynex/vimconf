@@ -54,6 +54,9 @@ endif
     " Fuzzy finder (files, mru, etc)
     Plugin 'ctrlpvim/ctrlp.vim'
 
+    " Unite file finder
+    "Plugin 'Shougo/unite.vim'
+
     " A pretty statusline, bufferline integration
     " Plugin 'itchyny/lightline.vim'
     " Plugin 'bling/vim-bufferline'
@@ -111,12 +114,17 @@ endif
 
     Plugin 'scrooloose/nerdtree'
 
-    "Plugin 'farseer90718/vim-taskwarrior'
-
     " An icon theme for vim
     Plugin 'ryanoasis/vim-devicons'
 
     Plugin 'godlygeek/tabular'
+
+    " Vim Notes
+    Plugin 'xolox/vim-misc'
+    Plugin 'xolox/vim-notes'
+
+    " Vim TW
+    Plugin 'blindFS/vim-taskwarrior'
 
     " A hexeditor
     "Plugin 'fidian/hexmode'
@@ -372,7 +380,8 @@ endif
         nmap <silent> <F1> :NERDTreeToggle<CR>
 
         " Toggle english spell checking
-        map <F6> :setlocal spell! spelllang=en_us<CR>
+        map <F6> :setlocal spell! spelllang=de_de<CR>
+        "map <F6> :setlocal spell! spelllang=en_us<CR>
 
 
     """ }}}
@@ -495,6 +504,9 @@ endif
     """ }}}
 """ }}}
 """ Plugin settings {{{
+    " Unite
+    "nnoremap <C-p> :Unite file buffer <CR>
+
     " Startify, the fancy start page
     let g:ctrlp_reuse_window = 'startify' " don't split in startify
     let g:startify_bookmarks = [
