@@ -115,16 +115,13 @@ endif
     Plugin 'scrooloose/nerdtree'
 
     " An icon theme for vim
-    Plugin 'ryanoasis/vim-devicons'
+    "Plugin 'ryanoasis/vim-devicons'
 
     Plugin 'godlygeek/tabular'
 
     " Vim Notes
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-notes'
-
-    " Vim TW
-    Plugin 'blindFS/vim-taskwarrior'
 
     " A hexeditor
     "Plugin 'fidian/hexmode'
