@@ -604,3 +604,6 @@ imap <C-o> <Esc>
 " NeoVim tests
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+" Use the systems clipboard
+set clipboard+=unnamedplus
