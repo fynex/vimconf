@@ -11,4 +11,5 @@ Link with
 ```json
    "vim.vimrc.enable": true,
    "vim.vimrc.path": "c:\\Users\\YOUR_USER\\.vsvimrc"
+   "editor.cursorBlinking": "solid"
 ```
