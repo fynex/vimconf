@@ -56,6 +56,9 @@ endif
 
     " Unite file finder
     "Plugin 'Shougo/unite.vim'
+    
+    Plugin 'nvim-lua/plenary.nvim'
+    Plugin 'nvim-telescope/telescope.nvim'
 
     " A pretty statusline, bufferline integration
     " Plugin 'itchyny/lightline.vim'
@@ -90,7 +93,7 @@ endif
     Plugin 'MarcWeber/vim-addon-mw-utils'
     Plugin 'tomtom/tlib_vim'
     Plugin 'honza/vim-snippets'
-    Plugin 'garbas/vim-snipmate'
+    "Plugin 'garbas/vim-snipmate'
 
     " A fancy start screen, shows MRU etc.
     Plugin 'mhinz/vim-startify'
@@ -110,14 +113,14 @@ endif
 
     Plugin 'wannesm/wmnusmv.vim'
 
+    Plugin 'godlygeek/tabular'
+
     Plugin 'jtratner/vim-flavored-markdown'
 
     Plugin 'scrooloose/nerdtree'
 
     " An icon theme for vim
     "Plugin 'ryanoasis/vim-devicons'
-
-    Plugin 'godlygeek/tabular'
 
     " Vim Notes
     Plugin 'xolox/vim-misc'
@@ -331,6 +334,14 @@ endif
         " Scroll up/down lines from 'scroll' option, default half a screen
         map <C-k> <C-d>
         map <C-l> <C-u>
+        inoremap <C-j> <Esc>
+
+        "Tests
+        "map <C-j> 0
+        "map <C-a-char-246> $
+        "map <C-ö> $
+        "inoremap <D-.> <Esc>
+        "imap <D-j> <Esc>
 
         " Treat wrapped lines as normal lines
         nnoremap j gj
@@ -352,9 +363,13 @@ endif
 
         " Better and more motionless navigation
         noremap ö l
+        noremap ; l
         noremap l k
         noremap k j
         noremap j h
+
+        " Map jj to Esc
+        " inoremap öö <Esc> 
 
         " Map key to toggle opt
         function MapToggle(key, opt)
@@ -367,7 +382,7 @@ endif
         MapToggle <F3> wrap
 
         " Toggling paste mode
-        set pastetoggle=<F2>
+        "set pastetoggle=<F2>
 
         " Press F4 to toggle highlighting on/off, and show current value.
         :noremap <F4> :set hlsearch! hlsearch?<CR>
@@ -531,7 +546,8 @@ endif
     let g:syntastic_mode_map = {
         \ 'mode': 'passive',
         \ 'active_filetypes':
-            \ ['c', 'cpp', 'perl', 'python', 'sh'] }
+            \ ['c', 'cpp', 'perl', 'sh'] }
+            "l\ ['c', 'cpp', 'perl', 'python', 'sh'] }
 
     " Netrw - the bundled (network) file and directory browser
     let g:netrw_banner = 0
@@ -599,14 +615,24 @@ endif
 " Toggle Normal-/Insert-Mode with capslock
 nnoremap <C-o> i
 imap <C-o> <Esc>
+"imap <M-j> <Esc>
 
+set clipboard=unnamedplus
 
 " NeoVim tests
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
-" Use the systems clipboard
-set clipboard+=unnamedplus
-
-" Language specific white spaces
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+hi Normal guibg=NONE ctermbg=NONE
+hi LineNr guibg=NONE ctermbg=NONE
+hi EndOfBuffer ctermbg=NONE guibg=NONE
+hi Whitespace ctermfg=NONE guifg=NONE
+
+" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
