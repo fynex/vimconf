@@ -1,4 +1,8 @@
-# vimconf
+# Current
+
+For NeoVim use the `init.lua` and copy it to `~/.config/nvim/init.lua`
+
+# Old vimconf
 
 Link with
 ```bash
