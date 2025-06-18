@@ -10,7 +10,7 @@ Link with
     ln -s ~/vimconf/after ~/.vim/after
 ```
 
-## Visual Studio usage of vimrc
+# Visual Studio usage of vimrc
 
 ```json
    "vim.vimrc.enable": true,
